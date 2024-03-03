@@ -4,14 +4,31 @@ Answer the following questions and provide the SQL queries used to find the answ
 **Question 1: Which cities and countries have the highest level of transaction revenues on the site?**
 
 
-SQL Queries:
+SQL Queries: 
+SELECT   SUM(productprice) AS totalproductprice,
+		 country,
+		 city
+FROM     allsessions
+WHERE	 city <> 'not available in demo dataset' 
+		 AND city <> '(not set)'
+GROUP BY country,
+		 city
+ORDER BY totalproductprice DESC;
 
 
 
-Answer:
+Answer: Top Ten
 
-
-
+1. Mountain View, United States
+2. New York, United States
+3. San Francisco, United States
+4. Sunnyvale, United States
+5. San Jose, United States
+6. Los Angeles, United States
+7. Chicago, United States
+8. Palo Alto, United States
+9. London, United Kingdom
+10. Seattle, United States
 
 **Question 2: What is the average number of products ordered from visitors in each city and country?**
 
