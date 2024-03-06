@@ -2,20 +2,27 @@ Answer the following questions and provide the SQL queries used to find the answ
 
     
 **Question 1: Which cities and countries have the highest level of transaction revenues on the site?**
-
-
 SQL Queries: 
-SELECT   SUM(productprice) AS totalproductprice,
-		 country,
-		 city
-FROM     allsessions
-WHERE	 city <> 'not available in demo dataset' 
-		 AND city <> '(not set)'
-GROUP BY country,
-		 city
-ORDER BY totalproductprice DESC;
 
+WITH cte_transactionrevenue AS (SELECT fullvisitorid,
+				       productprice,
+				       sr.productsku,
+				       sr.productname,
+				       city,
+		     		       country
+			        FROM   allsessions al
+				JOIN   salesreport sr USING(productsku)
+				WHERE  city <> 'not available in demo dataset' 
+			 	AND    city <> '(not set)'
+				AND    productprice <> 0)
 
+SELECT   SUM(productprice) as totalrevenue,
+         city,
+	 country
+FROM     cte_transactionrevenue
+GROUP BY city,
+	 country
+ORDER BY totalrevenue DESC;
 
 Answer: Top Ten
 
@@ -32,19 +39,29 @@ Answer: Top Ten
 
 **Question 2: What is the average number of products ordered from visitors in each city and country?**
 
-
 SQL Queries:
-
-
+WITH cte_productsorderedbycustomer AS (SELECT   COUNT(fullvisitorid) AS productsordered,
+						fullvisitorid,
+						city,
+						country
+       				       FROM     allsessions
+				       WHERE	city <> 'not available in demo dataset'
+		       		       AND 	city <> '(not set)'
+				       AND	productprice <> 0
+				       GROUP BY fullvisitorid,
+						city,
+						country)
+										       
+SELECT   AVG(productsordered) AS avgproductsordered,
+         city,
+	 country
+FROM     cte_productsorderedbycustomer
+GROUP BY city,
+         country;
 
 Answer:
 
-
-
-
-
 **Question 3: Is there any pattern in the types (product categories) of products ordered from visitors in each city and country?**
-
 
 SQL Queries:
 
