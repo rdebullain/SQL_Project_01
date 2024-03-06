@@ -12,9 +12,7 @@ Starting with Questions:
 Question 1: Which cities and countries have the highest level of transaction revenues on the site?
 Sub-Query Quality Assurance Check: 
 
-Question 2: What is the average number of products ordered from visitors in each city and country?
-
-Sub-Query Quality Assurance (QA) Check: 
+Question 2: Sub-Query Quality Assurance (QA) Check
 
 SELECT DISTINCT(city),
        country
