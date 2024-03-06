@@ -13,9 +13,12 @@ Question 1: Which cities and countries have the highest level of transaction rev
 Sub-Query Quality Assurance Check: 
 
 Question 2: What is the average number of products ordered from visitors in each city and country?
-Sub-Query Quality Assurance (QA) Check: SELECT DISTINCT(city),
-                                               country
-                                        FROM   allsessions
-                                        WHERE  city <> 'not available in demo dataset'
-                                        AND    city <> '(not set)'
-                                        AND	   productprice <> 0;
+
+Sub-Query Quality Assurance (QA) Check: 
+
+SELECT DISTINCT(city),
+       country
+FROM   allsessions
+WHERE  city <> 'not available in demo dataset'
+AND    city <> '(not set)'
+AND	   productprice <> 0;
