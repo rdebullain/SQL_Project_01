@@ -2,40 +2,31 @@ Answer the following questions and provide the SQL queries used to find the answ
 
     
 **Question 1: Which cities and countries have the highest level of transaction revenues on the site?**
-SQL Queries: 
+-- BY CITY --
+SELECT   city, SUM(productprice) AS transactionrevenue
+FROM     allsessions al
+JOIN     salesbysku sbs USING(productsku)
+WHERE    productprice <> 0 -- QA: Remove NULL values from productprice column
+         AND city <> 'not available in demo dataset' -- QA: Remove 'not available in demo dataset' values from city column
+         AND city <> '(not set)' -- QA: Remove '(not set)' values from city column         
+	 AND city IS NOT NULL  -- QA: Check for NULL values in city column
+GROUP BY country, city
+HAVING   COUNT(*) > 0  -- QA: Check for proper grouping
+ORDER BY transactionrevenue DESC;  -- QA: Confirm proper ordering
 
-WITH cte_transactionrevenue AS (SELECT fullvisitorid,
-				       productprice,
-				       sr.productsku,
-				       sr.productname,
-				       city,
-		     		       country
-			        FROM   allsessions al
-				JOIN   salesreport sr USING(productsku)
-				WHERE  city <> 'not available in demo dataset' 
-			 	AND    city <> '(not set)'
-				AND    productprice <> 0)
 
-SELECT   SUM(productprice) as totalrevenue,
-         city,
-	 country
-FROM     cte_transactionrevenue
-GROUP BY city,
-	 country
-ORDER BY totalrevenue DESC;
+-- BY COUNTRY --
+SELECT   country, SUM(productprice) AS transactionrevenue
+FROM     allsessions al
+JOIN     salesbysku sbs USING(productsku)
+WHERE    productprice <> 0 -- QA: Remove NULL values from productprice column
+         AND country <> '(not set)' -- QA: Remove '(not set)' values from country column
+         AND country IS NOT NULL  -- QA: Check for NULL values in country column
+GROUP BY country
+HAVING   COUNT(*) > 0  -- QA: Check for proper grouping
+ORDER BY transactionrevenue DESC;  -- QA: Confirm proper ordering
 
-Answer: Top Ten
-
-1. Mountain View, United States
-2. New York, United States
-3. San Francisco, United States
-4. Sunnyvale, United States
-5. San Jose, United States
-6. Los Angeles, United States
-7. Chicago, United States
-8. Palo Alto, United States
-9. London, United Kingdom
-10. Seattle, United States
+Answer: Mountain View, New York, San Francisco
 
 **Question 2: What is the average number of products ordered from visitors in each city and country?**
 
