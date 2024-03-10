@@ -14,6 +14,7 @@ GROUP BY country, city
 HAVING   COUNT(*) > 0  -- QA: Check for proper grouping
 ORDER BY transactionrevenue DESC;  -- QA: Confirm proper ordering
 
+Answer: Mountain View, New York, San Francisco
 
 -- BY COUNTRY --
 SELECT   country, SUM(productprice) AS transactionrevenue
@@ -26,7 +27,8 @@ GROUP BY country
 HAVING   COUNT(*) > 0  -- QA: Check for proper grouping
 ORDER BY transactionrevenue DESC;  -- QA: Confirm proper ordering
 
-Answer: Mountain View, New York, San Francisco
+Answer: United States, United Kingdom, Canada
+
 
 **Question 2: What is the average number of products ordered from visitors in each city and country?**
 
