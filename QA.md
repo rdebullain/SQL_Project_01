@@ -1,13 +1,17 @@
 What are your risk areas? Identify and describe them.
-1. Data Accuracy:
-          - Incorrect product information such as pricing, descriptions, or attributes.
-2. Data Completeness:
-          - Missing or incomplete records for products, transactions, or customers.
-3. Data Usability:
-          - Poor data formatting that hinders analysis or reporting.
+
+
+1. Data Accuracy: Incorrect product information such as pricing, descriptions, or attributes.
+
+   
+2. Data Completeness: Missing or incomplete records for products, transactions, or customers.
+
+
+3. Data Usability: Poor data formatting that hinders analysis or reporting.
 
    
 QA Process:
+
 Check for NULL Values: Ensure that critical columns do not contain NULL values, preventing unexpected behavior and maintaining data integrity.
 
 Check for Zero Values: Verify that numeric columns do not contain zero values, ensuring the validity of calculations and preventing errors.
@@ -46,6 +50,8 @@ ORDER BY transactionrevenue DESC;  -- QA: Confirm proper ordering
 
 
 Example 2: What is the average number of products ordered from visitors in each city and country?
+
+
 SELECT   *
 FROM     cte_productsbycity
 WHERE    totalproductsordered = 0  -- QA: Check for NULL values in totalproductsordered column
