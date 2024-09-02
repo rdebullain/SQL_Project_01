@@ -1,4 +1,4 @@
-# Final-Project-Transforming-and-Analyzing-Data-with-SQL
+# Project: Transforming and Analyzing Data with SQL
 
 The project aims to analyze sales data to understand revenue trends and customer behavior.
 
